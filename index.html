@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScyNets Corps - Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 50px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #00f5ff;
+            transform: translateY(-2px);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00f5ff, #ff00f5);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00f5ff, #ff00f5, #ffff00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #00f5ff, #ff00f5);
+            text-decoration: none;
+            color: white;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 245, 255, 0.5);
+        }
+
+        /* 3D Background */
+        .bg-3d {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(0, 245, 255, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 0, 245, 0.3) 0%, transparent 50%);
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(0, 245, 255, 0.1), rgba(255, 0, 245, 0.1));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(45deg, #00f5ff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+            transition: all 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.05);
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #00f5ff, #ff00f5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            transform: translateZ(0);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0, 245, 255, 0.2);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00f5ff, #ff00f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .skill-progress {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .skill-fill {
+            height: 10px;
+            background: linear-gradient(90deg, #00f5ff, #ff00f5);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            transform: perspective(1000px) rotateX(5deg);
+        }
+
+        .project-card:hover {
+            transform: perspective(1000px) rotateX(0deg) translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 245, 255, 0.3);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #00f5ff, #ff00f5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            background: rgba(0, 245, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 245, 255, 0.5);
+        }
+
+        /* Education Section */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, #00f5ff, #ff00f5);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background: linear-gradient(45deg, #00f5ff, #ff00f5);
+            border-radius: 50%;
+            top: 15px;
+        }
+
+        .timeline-item.right {
+            left: 50%;
+        }
+
+        .timeline-item.right::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 245, 255, 0.2);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00f5ff;
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.2);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            background: linear-gradient(45deg, #00f5ff, #ff00f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(255, 0, 245, 0.8);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 50px 20px;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0;
+            }
+
+            .timeline-item.right {
+                left: 0;
+            }
+
+            .timeline::after {
+                left: 20px;
+            }
+
+            .timeline-item::after {
+                left: 10px;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <script>
+// Nonaktifkan klik kanan
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+// Nonaktifkan shortcut DevTools (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U)
+document.addEventListener('keydown', e => {
+  if (
+    e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) ||
+    (e.ctrlKey && e.key === 'U')
+  ) {
+    e.preventDefault();
+  }
+});
+</script>
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#education">Experience</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#freecode">Free Code</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="bg-3d">
+            <div class="floating-shapes">
+                <div class="shape"></div>
+                <div class="shape"></div>
+                <div class="shape"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1>ScyNets Corporation</h1>
+            <p>Game Developer & Web Developer</p>
+            <a href="#about" class="cta-button">Explore About My Profile</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section fade-in">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="profile-card">
+                <div class="profile-img">👨‍💻</div>
+                <h3>Steven Tanama</h3>
+                <p>Game & Web Developer</p>
+                <p>2+ Years Experience</p>
+            </div>
+            <div>
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 20px;">
+                    Saya adalah seorang Game Developer dan Web Developer dengan passion yang besar dalam menciptakan pengalaman digital yang luar biasa. Dengan pengalaman lebih dari 2 tahun di dunia teknologi, saya telah mengembangkan berbagai game dan aplikasi web yang inovatif dan menarik.
+                </p>
+                <p style="font-size: 1.1rem; line-height: 1.7; opacity: 0.9;">
+                    Keahlian saya mencakup teknologi web seperti HTML, CSS, JavaScript, PHP, dan Python untuk web development, serta Three.js untuk pengembangan game 3D dan visualisasi interaktif. Saya juga menguasai bahasa pemrograman seperti C++, C#, dan CoffeeScript untuk berbagai keperluan development.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section fade-in">
+        <h2>Skills & Expertise</h2>
+</div>
+            <div class="skill-card">
+                <div class="skill-icon">🗄️</div>
+                <h3>Web Development</h3>
+                <p>HTML, PHP, CSS, TypeScript, JavaScript </p>
+                <div class="skill-progress">
+                    <div class="skill-fill" style="width: 92%"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🎨</div>
+                <h3>Game Development</h3>
+                <p>Python, Java Script, Coffee Script, React Js, Lua</p>
+                <div class="skill-progress">
+                    <div class="skill-fill" style="width: 80%"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">📱</div>
+                <h3>Database</h3>
+                <p>MySQL</p>
+                <div class="skill-progress">
+                    <div class="skill-fill" style="width: 70%"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">☁️</div>
+                <h3>Design</h3>
+                <p>Canva</p>
+                <div class="skill-progress">
+                    <div class="skill-fill" style="width: 70%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section fade-in">
+        <h2>Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-img">🎮</div>
+                <div class="project-content">
+                    <h3>3D Plane Game</h3>
+                    <p>Game Balapan Pesawat 3D dengan grafik yang memukau menggunakan Three.js dan CoffeeScript. Menampilkan world yang luas dengan physics engine yang realistis.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Three.js</span>
+                        <span class="tech-tag">CoffeeScript</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">HTML5</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">🌐</div>
+                <div class="project-content">
+                    <h3>Interactive Web Platform</h3>
+                    <p>Platform web interaktif dengan dashboard real-time dan fitur multiplayer. Dibangun dengan teknologi web modern dan backend yang kuat.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">🌐</div>
+                <div class="project-content">
+                    <h3>Interactive Horror Games</h3>
+                    <p>Game yang dibuat menggunakan bahasa berbasis HTML5 dan didesain menggunakan base Minecraft sehingga menciptakan Minecraft & Robot Maze di rilis tahun 2024</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">CSS</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">🎯</div>
+                <div class="project-content">
+                    <h3>Roblox Game Project</h3>
+                    <p>Map Roblox dengan tema Obby Horror yang dibuat secara realistis dengan Backrooms & Maze dengan tampilan beberapa hantu yang menyeramkan</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Lua</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section fade-in">
+        <h2>Education & Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Senior Game Developer</h3>
+                    <h4>ScyNets Game Studio</h4>
+                    <span>2022 - Present</span>
+                    <p>Membangun game berbasis HTML5 dan di publish di website Tahun 2024 tentang Maze & Escape  </p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>Web Developer</h3>
+                    <h4>ScyNets Corporations</h4>
+                    <span>2020 - 2022</span>
+                    <p>Mengembangkan aplikasi web interaktif menggunakan HTML, CSS, JavaScript, PHP, dan Python untuk berbagai klien.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Hades Net Company</h3>
+                    <h4>Big Internet Solution</h4>
+                    <span>2022-2024</span>
+                    <p>Membangun jaringan Networking yang besar dan sudah di pakai banyak server dan website di dunia, salah satunya adalah Netflix pada tahun 2022.</p>
+                </div>
+            </div>
+    </section>
+
+<!-- Free Code Section -->
+<section id="freecode" class="section fade-in">
+    <h2>Free Code</h2>
+    <p style="text-align:center; opacity:0.8;">Kumpulan kode gratis yang bisa kamu gunakan untuk proyekmu.</p>
+    <div style="max-width:800px; margin: 40px auto 0;">
+        <h3 style="margin-bottom: 10px;">CSS Button Hover</h3>
+        <pre style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; overflow-x:auto;"><code>button {
+    background: linear-gradient(45deg, #00f5ff, #ff00f5);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 20px rgba(0, 245, 255, 0.4);
+}</code></pre>
+
+        <h3 style="margin-top: 40px; margin-bottom: 10px;">HTML Card Template</h3>
+        <pre style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; overflow-x:auto;"><code>&lt;div class="card"&gt;
+    &lt;h3&gt;Card Title&lt;/h3&gt;
+    &lt;p&gt;This is a reusable card layout for your website.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+        <h3 style="margin-top: 40px; margin-bottom: 10px;">JavaScript Alert</h3>
+        <pre style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; overflow-x:auto;"><code>function greetUser(name) {
+    alert('Hello ' + name + '! Welcome to my portfolio.');
+}
+
+// Call the function
+greetUser('Developer');</code></pre>
+    </div>
+</section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section fade-in">
+        <h2>Get In Touch</h2>
+        <div class="contact-content">
+            <div class="contact-form">
+                <h3 style="margin-bottom: 30px;">Send Me a Message</h3>
+                <form>
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="5" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="cta-button" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div>
+                        <h4>Email</h4>
+                        <p>scyvps@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>+62 821-6259-8455</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div>
+                        <h4>Location</h4>
+                        <p>Medan, Indonesia</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">🌐</div>
+                    <div>
+                        <h4>Social Media</h4>
+                        <p>Instagram : estehhh_2228</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling untuk navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Animate skill progress bars
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-fill');
+            skillBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        }
+
+        // Trigger skill bar animation when skills section is visible
+        const skillsSection = document.getElementById('skills');
+        const skillsObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateSkillBars();
+                    skillsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        skillsObserver.observe(skillsSection);
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Terima kasih! Pesan Anda telah terkirim. Saya akan segera menghubungi Anda kembali.');
+            this.reset();
+        });
+
+        // Add dynamic particles effect
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 4px;
+                height: 4px;
+                background: rgba(0, 245, 255, 0.8);
+                border-radius: 50%;
+                pointer-events: none;
+                animation: particleFloat 3s linear forwards;
+                left: ${Math.random() * 100}vw;
+                top: 100vh;
+                z-index: 1;
+            `;
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 3000);
+        }
+
+        // Add particle animation styles
+        const particleStyles = document.createElement('style');
+        particleStyles.textContent = `
+            @keyframes particleFloat {
+                0% {
+                    transform: translateY(0) translateX(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100vh) translateX(${Math.random() * 200 - 100}px) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(particleStyles);
+
+        // Create particles periodically
+        setInterval(createParticle, 300);
+
+        // Add hover effects for cards
+        document.querySelectorAll('.skill-card, .project-card, .contact-item').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = this.style.transform + ' scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = this.style.transform.replace(' scale(1.02)', '');
+            });
+        });
+
+        // Add typing effect for hero text
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect
+        window.addEventListener('load', function() {
+            const heroTitle = document.querySelector('.hero h1');
+            const heroDesc = document.querySelector('.hero p');
+            
+            setTimeout(() => {
+                typeWriter(heroTitle, 'ScyNets Corporation', 150);
+            }, 500);
+            
+            setTimeout(() => {
+                typeWriter(heroDesc, 'Game Developer & Web Developer', 80);
+            }, 2500);
+        });
+
+        // Add 3D tilt effect to cards
+        document.querySelectorAll('.profile-card, .skill-card, .project-card').forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const mouseX = e.clientX - centerX;
+                const mouseY = e.clientY - centerY;
+                
+                const rotateX = (mouseY / rect.height) * -10;
+                const rotateY = (mouseX / rect.width) * 10;
+                
+                this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+            });
+        });
+
+        // Add parallax effect
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const shapes = document.querySelectorAll('.shape');
+            
+            shapes.forEach((shape, index) => {
+                const speed = 0.5 + (index * 0.2);
+                shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+            });
+        });
+
+        // Add loading animation
+        function showLoadingAnimation() {
+            const loader = document.createElement('div');
+            loader.id = 'loader';
+            loader.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 9999;
+                    flex-direction: column;
+                ">
+                    <div style="
+                        width: 60px;
+                        height: 60px;
+                        border: 3px solid rgba(0, 245, 255, 0.3);
+                        border-top: 3px solid #00f5ff;
+                        border-radius: 50%;
+                        animation: spin 1s linear infinite;
+                        margin-bottom: 20px;
+                    "></div>
+                    <p style="color: white; font-size: 1.2rem;">Loading Profile...</p>
+                </div>
+            `;
+            
+            const spinKeyframes = document.createElement('style');
+            spinKeyframes.textContent = `
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(spinKeyframes);
+            document.body.appendChild(loader);
+            
+            // Remove loader after page loads
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                loader.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    loader.remove();
+                }, 500);
+            }, 2000);
+        }
+
+        // Show loading animation
+        showLoadingAnimation();
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #00f5ff, #ff00f5);
+            z-index: 9999;
+            transition: width 0.1s ease;
+        `;
+        document.body.appendChild(progressBar);
+
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+
+        // Add dynamic background color change based on section
+        const sections = document.querySelectorAll('section');
+        const colors = [
+            'linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e)',
+            'linear-gradient(135deg, #1a1a2e, #16213e, #0f3460)',
+            'linear-gradient(135deg, #16213e, #0f3460, #533483)',
+            'linear-gradient(135deg, #0f3460, #533483, #7209b7)',
+            'linear-gradient(135deg, #533483, #7209b7, #2d1b69)',
+            'linear-gradient(135deg, #7209b7, #2d1b69, #0c0c0c)'
+        ];
+
+        const sectionObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(sections).indexOf(entry.target);
+                    document.body.style.background = colors[index] || colors[0];
+                }
+            });
+        }, { threshold: 0.3 });
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Add Easter egg - Konami code
+        let konamiCode = [];
+        const targetCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // Up Up Down Down Left Right Left Right B A
+
+        document.addEventListener('keydown', function(e) {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > targetCode.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.join(',') === targetCode.join(',')) {
+                // Easter egg activated!
+                document.body.style.animation = 'rainbow 2s infinite';
+                
+                const easterEggStyle = document.createElement('style');
+                easterEggStyle.textContent = `
+                    @keyframes rainbow {
+                        0% { filter: hue-rotate(0deg); }
+                        25% { filter: hue-rotate(90deg); }
+                        50% { filter: hue-rotate(180deg); }
+                        75% { filter: hue-rotate(270deg); }
+                        100% { filter: hue-rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(easterEggStyle);
+                
+                alert('🎉 Easter Egg Activated! Selamat, Anda menemukan kode rahasia!');
+                
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                }, 5000);
+            }
+        });
+
+        // Add floating action button for back to top
+        const backToTopBtn = document.createElement('button');
+        backToTopBtn.innerHTML = '↑';
+        backToTopBtn.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00f5ff, #ff00f5);
+            border: none;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+        `;
+
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        document.body.appendChild(backToTopBtn);
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopBtn.style.opacity = '1';
+                backToTopBtn.style.visibility = 'visible';
+            } else {
+                backToTopBtn.style.opacity = '0';
+                backToTopBtn.style.visibility = 'hidden';
+            }
+        });
+
+        // Add click sound effect
+        function playClickSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+
+        // Add click sound to interactive elements
+        document.querySelectorAll('button, .cta-button, nav a').forEach(element => {
+            element.addEventListener('click', playClickSound);
+        });
+
+        console.log('🚀 3D Portfolio Loaded Successfully!');
+        console.log('💡 Tip: Try the Konami code for a surprise!');
+    </script>
+</body>
+</html>
